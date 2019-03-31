@@ -3,28 +3,47 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using InterviewQuestions.Models;
 
 namespace InterviewQuestions.Controllers
 {
+
     public class HomeController : Controller
     {
+        CompanyDB companyDB = new CompanyDB();
+
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult SQL()
         {
-            ViewBag.Message = "Your application description page.";
+            //CompanyDB companyDB = new CompanyDB();
+            var query = from quest in companyDB.questions
+                        where quest.Type == "SQL"
+                        select quest;
+            //var Sql = companyDB.questions.ToList();
 
-            return View();
+
+            return View(query);
         }
 
-        public ActionResult Contact()
+        public ActionResult React()
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            var query = from quest in companyDB.questions
+                        where quest.Type == "React"
+                        select quest;
+            return View(query);
         }
+
+        public ActionResult Angular()
+        {
+            var query = from quest in companyDB.questions
+                        where quest.Type == "Angular"
+                        select quest;
+            return View(query);
+        }
+
     }
 }
